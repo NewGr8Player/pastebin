@@ -1,1 +1,15 @@
-
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  data:
+    redis:
+      host: 192.168.50.13
+      port: 6379
+      # password:
+      database: 6
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 5
+          min-idle: 1
+          max-wait: 5000ms

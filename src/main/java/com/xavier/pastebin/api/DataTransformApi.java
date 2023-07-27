@@ -1,2 +1,10 @@
-package com.xavier.pastebin.api;public class DataTransformApi {
+package com.xavier.pastebin.api;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+public class DataTransformApi {
+
 }
