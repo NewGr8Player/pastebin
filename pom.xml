@@ -173,7 +173,6 @@
                 <version>2.9.1</version>
                 <configuration>
                     <source>${java.version}</source>
-                    <target>${java.version}</target>
                     <encoding>${project.encoding}</encoding>
                     <charset>${project.encoding}</charset>
                     <docencoding>${project.encoding}</docencoding>
