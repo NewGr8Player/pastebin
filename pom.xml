@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.xavier</groupId>
     <artifactId>pastebin</artifactId>
-    <version>1.0.0</version>
+    <version>v1.0.0</version>
     <name>pastebin</name>
     <description>pastebin</description>
     <properties>
