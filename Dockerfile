@@ -6,11 +6,9 @@ ENV JAVA_OPTS=""
 ENV WORK_PATH=/src
 ENV SERVER_PORT=8080
 
-ARG APP_VERSION
-
 RUN mkdir ${WORK_PATH}
 
-COPY target/pastebin-${APP_VERSION}.jar ${WORK_PATH}/pastebin.jar
+COPY target/pastebin-*.jar ${WORK_PATH}/pastebin.jar
 
 WORKDIR ${WORK_PATH}
 

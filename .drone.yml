@@ -2,50 +2,78 @@ kind: pipeline
 type: docker
 name: pastebin
 
-trigger:
-  branch:
-    - master
-  when:
-    - tag
-
 steps:
-  - name: cache
-    image: drillster/drone-volume-cache
+  - name: restore-cache
+    image: meltwater/drone-cache
+    pull: if-not-exists
     settings:
-      cache_from: /root/.m2
-      cache_to: maven-cache
+      backend: "filesystem"
+      restore: true
+      ttl: 1
+      cache_key: "volume"
+      archive_format: "gzip"
+      mount:
+        - ./.m2/repository
     volumes:
       - name: maven-cache
-        path: /root/.m2
+        path: /tmp/cache
 
   - name: checkout
     image: plugins/git
     settings:
       depth: 1
 
-  - name: build
-    image: maven:latest
+  - name: maven-build
+    image: maven:3.8.6-amazoncorretto-11
+    pull: if-not-exists
     commands:
-      - mvn clean package -DskipTests=true
+      - mvn clean package -DskipTests=true -Dmaven.repo.local=.m2/repository -B -V
+    volumes:
+      - name: maven-cache
+        path: /tmp/cache
 
-  - name: docker-build
-    image: docker:latest
-    environment:
-      DOCKER_REPO: "newgr8player/pastebin"
-    secrets:
-      - source: dockerhub_username
-        target: DOCKER_USERNAME
-      - source: dockerhub_password
-        target: DOCKER_PASSWORD
-    commands:
-      - "docker build --build-arg APP_VERSION=${DRONE_TAG} -t ${DOCKER_REPO}:${DRONE_TAG} ."
-      - "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
-      - "docker push ${DOCKER_REPO}:${DRONE_TAG}"
-      - "docker tag ${DOCKER_REPO}:${DRONE_TAG} ${DOCKER_REPO}:latest"
-      - "docker push ${DOCKER_REPO}:latest"
+  - name: build-and-push-image
+    image: plugins/docker
+    volumes:
+      - name: docker-sock
+        path: "/var/run/docker.sock"
+      - name: maven-cache
+        path: /tmp/cache
+    settings:
+      username: newgr8player
+      password:
+        from_secret: dockerhub_password
+      repo: newgr8player/pastebin
+      tags: ${DRONE_TAG}
+      dockerfile: ./Dockerfile
+    trigger:
+      branch:
+        - master
+      when:
+        - tag
+
+  - name: rebuild-cache
+    image: meltwater/drone-cache
+    pull: if-not-exists
+    settings:
+      backend: "filesystem"
+      rebuild: true
+      cache_key: "volume"
+      archive_format: "gzip"
+      ttl: 1
+      mount:
+        - ./.m2/repository
+    volumes:
+      - name: maven-cache
+        path: /tmp/cache
+
+volumes:
+  - name: maven-cache
+    host:
+      path: /tmp/cache
 
 secrets:
   dockerhub_username:
-    from_secret: dockerhub_username
+
   dockerhub_password:
     from_secret: dockerhub_password
