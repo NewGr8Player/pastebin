@@ -31,18 +31,18 @@ steps:
   - name: docker-build
     image: docker:latest
     environment:
-      DOCKER_REPO: newgr8player/pastebin
+      DOCKER_REPO: "newgr8player/pastebin"
     secrets:
       - source: dockerhub_username
         target: DOCKER_USERNAME
       - source: dockerhub_password
         target: DOCKER_PASSWORD
     commands:
-      - docker build -t ${DOCKER_REPO}:${DRONE_TAG} . --build-arg APP_VERSION=${DRONE_TAG}
-      - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
-      - docker push ${DOCKER_REPO}:${DRONE_TAG}
-      - docker tag ${DOCKER_REPO}:${DRONE_TAG} ${DOCKER_REPO}:latest
-      - docker push ${DOCKER_REPO}:latest
+      - "docker build -t ${DOCKER_REPO}:${DRONE_TAG} . --build-arg APP_VERSION=${DRONE_TAG}"
+      - "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+      - "docker push ${DOCKER_REPO}:${DRONE_TAG}"
+      - "docker tag ${DOCKER_REPO}:${DRONE_TAG} ${DOCKER_REPO}:latest"
+      - "docker push ${DOCKER_REPO}:latest"
 
 secrets:
   dockerhub_username:
