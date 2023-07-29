@@ -38,11 +38,11 @@ steps:
       - source: dockerhub_password
         target: DOCKER_PASSWORD
     commands:
-      - docker build -t $DOCKER_REPO:${DRONE_TAG} . --build-arg APP_VERSION=${DRONE_TAG}
-      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      - docker push $DOCKER_REPO:${DRONE_TAG}
-      - docker tag $DOCKER_REPO:${DRONE_TAG} $DOCKER_REPO:latest
-      - docker push $DOCKER_REPO:latest
+      - docker build -t ${DOCKER_REPO}:${DRONE_TAG} . --build-arg APP_VERSION=${DRONE_TAG}
+      - docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}
+      - docker push ${DOCKER_REPO}:${DRONE_TAG}
+      - docker tag ${DOCKER_REPO}:${DRONE_TAG} ${DOCKER_REPO}:latest
+      - docker push ${DOCKER_REPO}:latest
 
 secrets:
   dockerhub_username:
