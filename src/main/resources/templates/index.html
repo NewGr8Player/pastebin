@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Xavier's PasteBin</title>
+    <link rel="stylesheet" th:href="@{/static/standalone/style.min.css}"/>
     <script th:src="@{/static/prism_1.29.0/prism.js}"></script>
 </head>
 <body>
-<h2>Form Example</h2>
+<h1>Xavier's pastebin</h1>
 <form th:action="@{/submit}" method="post">
     <label for="inputField">昵称:</label>
     <input type="text" id="inputField" name="author"/>
@@ -15,7 +16,7 @@
     <select id="selectField" name="language">
     </select>
 
-    <label for="selectField">过期:</label>
+    <label for="expireOption">保留:</label>
     <select id="expireOption" name="expire">
         <option value="1h">1小时</option>
         <option value="2h">2小时</option>
@@ -25,11 +26,10 @@
         <option value="1m">1月</option>
     </select>
 
-    <input type="submit" value="Submit"/>
+    <input type="submit" value="提交"/>
 
-    <label>
-        <textarea style="width: 100%; height: 200px;" name="content"></textarea>
-    </label>
+    <label for="codeTextArea"></label>
+    <textarea id="codeTextArea" style="width: 100%; min-height: 300px;height: fit-content" name="content"></textarea>
 </form>
 <script type="text/javascript">
     /**
@@ -44,11 +44,19 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         const $selectField = document.getElementById("selectField");
+        const languageList = Object.keys(Prism.languages).sort();
 
-        for (let languageKey in Prism.languages) {
+        const indexToRemove = languageList.indexOf("DFS"); /* 删除DFS方法映射出的Key */
+        if (indexToRemove !== -1) {
+            languageList.splice(indexToRemove, 1);
+        }
+
+        for (let i = 0; i < languageList.length; i++) {
+            const currentLanguageName = languageList[i];
+
             const $option = document.createElement("option");
-            $option.value = languageKey;
-            $option.text = capitalizeFirstLetter(languageKey);
+            $option.value = currentLanguageName;
+            $option.text = capitalizeFirstLetter(currentLanguageName);
 
             $selectField.add($option);
         }
