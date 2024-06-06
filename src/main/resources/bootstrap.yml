@@ -3,7 +3,9 @@ spring:
     nacos:
       server-addr: 192.168.50.13:8848
       config:
-        group: prod
+        group: dev
         file-extension: yaml
+      username: nacos
+      password: xavier
   application:
     name: xavier-pastebin

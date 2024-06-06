@@ -25,6 +25,13 @@ public class PageController {
         return new ModelAndView("index");
     }
 
+    @GetMapping("/list")
+    @RateLimit(times = 120, duration = 60)
+    public ModelAndView list() {
+        return new ModelAndView("list");
+    }
+
+
     @PostMapping("/submit")
     @RateLimit(times = 60, duration = 60)
     public ModelAndView submit(@ModelAttribute DataEntity dataEntity) {

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-Hans">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Xavier's PasteBin</title>
+    <link rel="stylesheet" th:href="@{/static/listpage/main.css}"/>
+    <link rel="stylesheet" th:href="@{/static/listpage/boxicons.min.css}"/>
+    <link rel="stylesheet" th:href="@{/static/listpage/materialdesignicons.min.css}"/>
+</head>
+<body>
+<h1>Xavier's pastebin</h1>
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <h5 class="card-title">当前可用内容 <span class="text-muted fw-normal ms-2">(总数)</span></h5>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <table class="table project-list-table table-nowrap align-middle table-borderless">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="ps-4" style="width: 50px;">
+                            <div class="form-check font-size-16">
+                                <input type="checkbox" class="form-check-input" id="contacusercheck"/>
+                                <label class="form-check-label" for="contacusercheck"></label>
+                            </div>
+                        </th>
+                        <th scope="col">提交人</th>
+                        <th scope="col">语言</th>
+                        <th scope="col">内容</th>
+                        <th scope="col">过期时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row" class="ps-4">
+                            <div class="form-check font-size-16">
+                                <input type="checkbox" class="form-check-input" id="contacusercheck1"/>
+                                <label class="form-check-label" for="contacusercheck1"></label>
+                            </div>
+                        </th>
+                        <td>
+                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
+                                 class="avatar-sm rounded-circle me-2"/>
+                            <span class="text-body">提交人</span>
+                        </td>
+                        <td>
+                            <span class="badge badge-soft-success mb-0">语言类型</span>
+                        </td>
+                        <td>内容</td>
+                        <td>过期时间</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

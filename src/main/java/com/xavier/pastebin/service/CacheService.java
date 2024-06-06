@@ -7,9 +7,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -48,6 +46,12 @@ public class CacheService {
                 );
 
         return DataEntity.fromMap(typedStringEntryMap);
+    }
+
+    public List<Map<String,Object>> getAllCache() {
+        Set<String> keys = stringRedisTemplate.opsForHash().keys("X*").stream().map(e -> (String) e).collect(Collectors.toSet());
+
+        return List.of(Map.of("keys", keys));
     }
 
     @Autowired

@@ -10,10 +10,5 @@
 <!-- https://github.com/PrismJS/prism/issues/3201#issuecomment-974647277 -->
 <pre class="line-numbers"><code th:class='${"language-"} + ${language}' th:text="${content}"></code></pre>
 <script th:src="@{/static/prism_1.29.0/prism.js}"></script>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log();
-    });
-</script>
 </body>
 </html>

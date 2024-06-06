@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.xavier</groupId>
     <artifactId>pastebin</artifactId>
-    <version>v1.0.0</version>
+    <version>v1.0.1</version>
     <name>pastebin</name>
     <description>pastebin</description>
     <properties>
@@ -24,7 +24,7 @@
         <!-- Spring Boot -->
         <spring-boot.version>3.0.2</spring-boot.version>
         <!-- SpringCloud Alibaba Nacos Discovery version -->
-        <spring-cloud-alibaba.version>2022.0.0.0-RC2</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
     </properties>
 
     <dependencyManagement>
